@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ONePay — касса для вашего магазина</title>
+<meta name="description" content="Скачайте приложение ONePay для Android — касса, сканер штрихкодов, отчёты и сотрудники в одном приложении.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <img src="assets/icon.png" alt="" class="brand-mark">
+      <span>ONePay</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#screens">Экраны</a>
+      <a href="#install">Установка</a>
+      <a href="#ios">iOS</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Переключить тему">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a id="download-btn-nav" class="btn btn-primary btn-small" href="#" download>Скачать</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">ONePay · Касса для магазина</div>
+        <h1>Касса для вашего <span class="accent-text">магазина</span> — в телефоне</h1>
+        <p class="hero-sub">Сканируйте товары, продавайте в несколько касаний, следите за остатками и выручкой. Без кассового аппарата — и без интернета.</p>
+
+        <div class="hero-cta">
+          <a id="download-btn" class="btn btn-primary btn-large" href="#" download>
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1zM5 19a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2H5z"/></svg>
+            Скачать для Android
+          </a>
+          <a href="#install" class="btn btn-ghost btn-large">Как установить</a>
+        </div>
+        <p class="hero-version" id="version-line">Загрузка информации о версии…</p>
+
+        <div class="hero-trust">
+          <div class="trust-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h2"/><path d="M4 17v2a1 1 0 0 0 1 1h2"/><path d="M20 7V5a1 1 0 0 0-1-1h-2"/><path d="M20 17v2a1 1 0 0 1-1 1h-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+            Сканер штрихкодов
+          </div>
+          <div class="trust-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M9.5 4.5A5 5 0 0 1 19 8a4 4 0 0 1 2 7.5"/><path d="M5 10a5 5 0 0 0 1 9.9h11"/></svg>
+            Работает офлайн
+          </div>
+          <div class="trust-item">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+            Отчёты и выручка
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-visual-stage">
+          <div class="hero-blob" aria-hidden="true"></div>
+          <div class="receipt">
+            <div class="receipt-title">ONePay · ЧЕК</div>
+            <div class="receipt-row"><span>Молоко 1л</span><span>12.50</span></div>
+            <div class="receipt-row"><span>Хлеб</span><span>3.00</span></div>
+            <div class="receipt-row"><span>Вода 0.5л</span><span>2.50</span></div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-row receipt-total"><span>Итого</span><span>18.00 TJS</span></div>
+          </div>
+          <div class="phone-frame">
+            <div class="phone-screen">
+              <img src="assets/screenshots/pos.png" alt="Экран кассы ONePay" loading="eager">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section-features" id="features">
+    <div class="section-head">
+      <span class="eyebrow">Возможности</span>
+      <h2>Всё что нужно для вашего магазина</h2>
+      <p>ONePay берёт на себя рутину кассы — вам остаётся продавать.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card feature-lead">
+        <div class="feature-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M9.5 4.5A5 5 0 0 1 19 8a4 4 0 0 1 2 7.5"/><path d="M5 10a5 5 0 0 0 1 9.9h11"/></svg>
+        </div>
+        <div class="feature-lead-text">
+          <h3>Работает без интернета</h3>
+          <p>Главное для магазина, где связь не всегда стабильна: продажи сохраняются на телефоне и сами синхронизируются, как только появится сеть. Касса не встаёт ни на секунду.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h2"/><path d="M4 17v2a1 1 0 0 0 1 1h2"/><path d="M20 7V5a1 1 0 0 0-1-1h-2"/><path d="M20 17v2a1 1 0 0 1-1 1h-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
+        </div>
+        <h3>Сканер штрихкодов</h3>
+        <p>Наведите камеру на штрихкод — товар сразу в чеке, без ручного поиска.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+        </div>
+        <h3>Отчёты и выручка</h3>
+        <p>Остатки, продажи и выручка — в реальном времени, без лишних экранов.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Сотрудники и роли</h3>
+        <p>Отдельный доступ для владельца и кассира — у каждого только то, что нужно.</p>
+      </div>
+    </div>
+
+    <div class="stat-panel">
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">работает офлайн</span></div>
+      <div class="stat"><span class="stat-num">2</span><span class="stat-label">роли доступа</span></div>
+      <div class="stat"><span class="stat-num">1</span><span class="stat-label">касса, склад и отчёты</span></div>
+      <div class="stat"><span class="stat-num">RU</span><span class="stat-label">интерфейс на русском</span></div>
+    </div>
+  </section>
+
+  <section class="section-screens" id="screens">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Интерфейс</span>
+        <h2>Как выглядит</h2>
+        <p>Четыре экрана — весь путь от входа до продажи.</p>
+      </div>
+    </div>
+    <div class="screens-scroll">
+      <div class="screen-item">
+        <div class="phone-frame phone-frame--small screen-tilt-a"><div class="phone-screen"><img src="assets/screenshots/login.png" alt="Экран входа ONePay" loading="lazy"></div></div>
+        <span class="screen-caption">Вход</span>
+      </div>
+      <div class="screen-item">
+        <div class="phone-frame phone-frame--small screen-tilt-b"><div class="phone-screen"><img src="assets/screenshots/pos.png" alt="Экран кассы ONePay" loading="lazy"></div></div>
+        <span class="screen-caption">Касса</span>
+      </div>
+      <div class="screen-item">
+        <div class="phone-frame phone-frame--small screen-tilt-a"><div class="phone-screen"><img src="assets/screenshots/products.png" alt="Список товаров ONePay" loading="lazy"></div></div>
+        <span class="screen-caption">Товары</span>
+      </div>
+      <div class="screen-item">
+        <div class="phone-frame phone-frame--small screen-tilt-b"><div class="phone-screen"><img src="assets/screenshots/employees.png" alt="Экран сотрудников ONePay" loading="lazy"></div></div>
+        <span class="screen-caption">Сотрудники</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section-install" id="install">
+    <div class="section-head">
+      <span class="eyebrow">Установка</span>
+      <h2>Как установить на Android</h2>
+      <p class="muted">Приложения пока нет в Play Market, поэтому устанавливается файлом (APK) — это безопасно, нужно только один раз разрешить установку.</p>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <strong>Нажмите «Скачать для Android»</strong> выше. Файл начнёт загружаться через браузер.
+      </li>
+      <li>
+        <strong>Если Chrome покажет предупреждение</strong> «Файл может быть опасен» или «Этот тип файлов может нанести вред устройству» — это стандартное предупреждение для любых файлов не из Play Market, а не признак проблемы с самим приложением. Нажмите «Скачать всё равно» (или «Подробнее» → «Скачать»).
+      </li>
+      <li>
+        <strong>Откройте скачанный файл</strong> (через уведомление о загрузке или в «Файлах»). Android покажет: «Для вашей безопасности телефон не может установить неизвестные приложения из этого источника».
+        <div class="step-shot">
+          <div class="phone-frame phone-frame--small">
+            <div class="phone-screen">
+              <img src="assets/screenshots/install-unknown-sources.png" alt="Экран разрешения установки из неизвестных источников в настройках Android" loading="lazy">
+            </div>
+          </div>
+          <span class="step-shot-caption">Так выглядит этот экран (текст на вашем телефоне может быть на русском)</span>
+        </div>
+      </li>
+      <li>
+        <strong>Нажмите «Настройки»</strong> в этом предупреждении → включите переключатель «Разрешить из этого источника» → вернитесь назад.
+      </li>
+      <li>
+        <strong>Нажмите «Установить»</strong> — и запустите ONePay.
+      </li>
+    </ol>
+  </section>
+
+  <section class="container section-ios" id="ios">
+    <div class="section-head">
+      <span class="eyebrow">Другие платформы</span>
+      <h2>iOS</h2>
+    </div>
+    <div class="ios-card">
+      <div class="ios-icon">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      </div>
+      <div class="ios-text">
+        <div class="ios-title-row">
+          <h3>Версия для iPhone</h3>
+          <span class="ios-badge">Скоро в App Store</span>
+        </div>
+        <p>Приложение для iPhone уже готово — на Android и iOS ONePay работает одинаково. Публикация в App Store сейчас готовится: в отличие от Android, для iPhone нет файла для прямой установки, Apple пускает приложения только через свой магазин. Напишите нам — сообщим, как только версия станет доступна.</p>
+        <a href="https://wa.me/992718994477" class="btn btn-ghost btn-small" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section-badges">
+    <div class="badges-row">
+      <div class="badge-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        Безопасная установка
+      </div>
+      <div class="badge-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l20 20"/><path d="M9.5 4.5A5 5 0 0 1 19 8a4 4 0 0 1 2 7.5"/><path d="M5 10a5 5 0 0 0 1 9.9h11"/></svg>
+        Работает офлайн
+      </div>
+      <div class="badge-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a1 1 0 0 1 1 1v10.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V3a1 1 0 0 1 1-1zM5 19a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2H5z"/></svg>
+        Бесплатная установка
+      </div>
+      <div class="badge-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Поддержка в WhatsApp
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="container">
+  <p>ONePay · <span id="footer-version">v…</span></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

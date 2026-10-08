@@ -1,0 +1,9 @@
+{
+  "latest_version": "1.0.0",
+  "latest_version_code": 1,
+  "min_supported_version_code": 1,
+  "apk_url": "https://app.oneads.me/download/onepay-1.0.0.apk",
+  "updated_at": "2026-10-07",
+  "changelog": "Первый публичный релиз ONePay.",
+  "force_update": false
+}

@@ -1,3 +1,13 @@
+// Дата/время в "шапке чека" — чисто декоративно, для эффекта настоящего кассового чека.
+(function () {
+  const el = document.getElementById("receipt-datetime");
+  if (!el) return;
+  const now = new Date();
+  const date = now.toLocaleDateString("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
+  const time = now.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+  el.textContent = date + " · " + time;
+})();
+
 // Переключатель темы — по умолчанию следует системной теме, с ручным оверрайдом в localStorage
 // (та же логика выбора, что и в самом приложении: "по умолчанию — фирменная тёмная").
 (function () {

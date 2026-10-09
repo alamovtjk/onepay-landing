@@ -1,74 +1,43 @@
 :root {
-  /* Исходные бренд-оттенки — фиксированные, не зависят от темы (TZ_LANDING.md). */
+  /* Бренд — фиксированные оттенки, не зависят от темы. */
   --burgundy: #7B1E3A;
   --burgundy-light: #9B2E50;
   --burgundy-dark: #5B0E2A;
-  --burgundy-container-light: #EFC8D3;
-
-  --success: #3DDC97;
-  --warning: #FFB84D;
 
   --font-display: "Unbounded", -apple-system, "Segoe UI", sans-serif;
   --font-body: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Liberation Mono", Menlo, Consolas, monospace;
 
-  /* Тёмная тема — та же ролевая раскладка, что в самом приложении (ui/theme/Color.kt):
-     акцент в тёмной теме — burgundy-light, а не DEFAULT, иначе на почти чёрном фоне он
-     читается слишком тускло. */
-  --bg: #0a0a0a;
-  --panel: #121113;
-  --surface: #161616;
-  --surface-elevated: #201f21;
-  --text-primary: #f5f2f3;
-  --text-secondary: #a8a3a5;
-  --hairline: rgba(255, 255, 255, 0.1);
-  --primary: var(--burgundy-light);
-  --on-primary: #ffffff;
-  --primary-container: var(--burgundy-dark);
-  --danger: #ff5470;
-  --shadow-color: rgba(155, 46, 80, 0.45);
-  --hero-glow: rgba(155, 46, 80, 0.2);
-  --phone-bezel: #050505;
-  --grain-opacity: 0.05;
+  /* Чек — физический объект, лежит на прилавке. Бумага и чернила всегда одного цвета,
+     как у настоящего чека — меняется только освещение прилавка (тема). */
+  --paper: #faf6ec;
+  --paper-text: #2a2420;
+  --paper-muted: rgba(42, 36, 32, 0.56);
+  --paper-faint: rgba(42, 36, 32, 0.14);
+  --ink: var(--burgundy);
 
-  /* Liquid glass — полупрозрачные карточки с размытием фона вместо плоской заливки. */
-  --glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --blob-1: var(--burgundy-light);
-  --blob-2: var(--burgundy-dark);
-  --blob-opacity: 0.28;
+  /* Прилавок — тёмное помещение магазина вечером. */
+  --counter: #0a0a0a;
+  --counter-glow: rgba(155, 46, 80, 0.22);
+  --chrome-text: #f5f2f3;
+  --chrome-muted: #a8a3a5;
+  --chrome-surface: rgba(255, 255, 255, 0.08);
+
+  /* Акцент на прилавке (не на бумаге) — светлее бургунди на тёмном фоне,
+     чтобы не "тонуть" в черноте. */
+  --counter-accent: var(--burgundy-light);
 
   color-scheme: dark;
 }
 
 [data-theme="light"] {
-  /* Светлая тема — акцент DEFAULT burgundy; светлее burgundy-light тут было бы слишком
-     ярким/кислотным на белом (тот же принцип, что и в приложении). */
-  --bg: #ffffff;
-  --panel: #faf7f8;
-  --surface: #ffffff;
-  --surface-elevated: #f0f0f0;
-  --text-primary: #1a1a1a;
-  --text-secondary: #6e6e6e;
-  --hairline: rgba(0, 0, 0, 0.1);
-  --primary: var(--burgundy);
-  --on-primary: #ffffff;
-  --primary-container: var(--burgundy-container-light);
-  --danger: #d3324e;
-  /* Цветная тень/свечение, которое красиво на чёрном, на белом смотрится грязным пятном —
-     в светлой теме тень нейтральная и мягкая. */
-  --shadow-color: rgba(26, 26, 26, 0.1);
-  --hero-glow: rgba(123, 30, 58, 0.06);
-  --phone-bezel: #0a0a0a;
-  --grain-opacity: 0.025;
-
-  --glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
-  --glass-border: rgba(255, 255, 255, 0.7);
-  --glass-shadow: 0 20px 48px -22px rgba(26, 26, 26, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --blob-1: var(--burgundy-light);
-  --blob-2: var(--burgundy);
-  --blob-opacity: 0.16;
+  /* Светлый прилавок — днём, через витрину. Чек остаётся той же бумагой. */
+  --counter: #e9e4dd;
+  --counter-glow: rgba(123, 30, 58, 0.1);
+  --chrome-text: #1a1a1a;
+  --chrome-muted: #6e6e6e;
+  --chrome-surface: rgba(0, 0, 0, 0.06);
+  --counter-accent: var(--burgundy);
 
   color-scheme: light;
 }
@@ -78,787 +47,636 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
-  color: var(--text-primary);
+  background: var(--counter);
+  overflow-x: hidden;
+}
+
+body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-/* overflow-x:hidden на html/body — классическая ловушка: он полностью ломает position:sticky
-   у ВСЕХ потомков на странице (поэтому шапка переставала закрепляться сверху при скролле).
-   Декоративные элементы (пятна цвета, чек, экраны) теперь либо в обычном потоке, либо
-   сами содержат своё переполнение (overflow:hidden на своей секции) — общая подстраховка
-   больше не нужна и только вредит. */
-
-/* Лёгкое зерно поверх всего сайта — фактура вместо плоского цвета, едва заметно. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
-
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 20px;
+  transition: background 0.25s ease;
 }
 
 img { max-width: 100%; display: block; }
 
-a { color: inherit; }
-
-h1, h2, h3 {
-  font-family: var(--font-display);
-  line-height: 1.15;
-  margin: 0 0 12px;
-  font-weight: 700;
+/* Лёгкое зерно — прилавок не плоский. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-h2 {
-  font-size: clamp(23px, 4vw, 32px);
-  letter-spacing: -0.01em;
+.counter-glow {
+  position: fixed;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70vw;
+  max-width: 760px;
+  height: 50vh;
+  background: radial-gradient(circle, var(--counter-glow), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-h3 { font-size: 16px; font-weight: 700; }
-
-p { line-height: 1.6; color: var(--text-secondary); margin: 0; font-weight: 500; }
-
-.muted { color: var(--text-secondary); font-size: 14px; }
-
-.accent-text { color: var(--primary); }
-
-.icon { width: 20px; height: 20px; flex: 0 0 auto; }
-
-/* Buttons */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 700;
-  font-family: var(--font-body);
-  text-decoration: none;
-  border-radius: 14px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease, border-color 0.15s ease;
-  white-space: nowrap;
-}
-
-.btn:active { transform: scale(0.98); }
-
-.btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
-  box-shadow: 0 8px 28px var(--shadow-color);
-}
-
-.btn-primary:hover { filter: brightness(1.08); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--hairline);
-}
-
-.btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
-
-.btn-large { padding: 16px 26px; font-size: 16px; }
-.btn-small { padding: 10px 18px; font-size: 14px; }
-
-/* Nav */
-
-.nav {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
+/* Плавающие элементы шапки — тема и скачать, без полноценного nav. */
+.chrome-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 14px;
+  pointer-events: none;
 }
 
-.nav-inner {
+.chrome-brand {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding-block: 14px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 17px;
-  text-decoration: none;
-  color: var(--text-primary);
-  margin-right: auto;
-}
-
-.brand-mark {
-  width: 30px;
-  height: 30px;
-  border-radius: 9px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 22px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--text-secondary);
-  font-weight: 600;
   font-size: 14px;
-  transition: color 0.15s ease;
+  color: var(--chrome-text);
+  opacity: 0.85;
+  pointer-events: auto;
 }
 
-.nav-links a:hover { color: var(--text-primary); }
-
-.nav-actions { display: flex; align-items: center; gap: 10px; }
+.chrome-brand img { width: 22px; height: 22px; border-radius: 6px; }
 
 .theme-toggle {
+  pointer-events: auto;
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  border: 1px solid var(--hairline);
-  background: var(--surface-elevated);
-  color: var(--text-primary);
+  border: 1px solid var(--chrome-surface);
+  background: var(--chrome-surface);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--chrome-text);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  flex: 0 0 auto;
 }
 
-.theme-toggle svg { width: 18px; height: 18px; }
-
+.theme-toggle svg { width: 17px; height: 17px; }
 .theme-toggle .icon-moon { display: none; }
 [data-theme="light"] .theme-toggle .icon-sun { display: none; }
 [data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
-@media (max-width: 760px) {
-  .nav-links { display: none; }
-}
+/* ---------- Сам чек ---------- */
 
-/* Hero */
-
-.hero {
+.receipt-wrap {
   position: relative;
-  padding: 48px 0 76px;
-  background:
-    radial-gradient(circle at 50% 0%, var(--hero-glow), transparent 55%),
-    var(--bg);
-}
-
-.hero-inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 56px;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-self: flex-start;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 14%, transparent);
-  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
-  padding: 6px 14px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 6vw, 50px);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  z-index: 1;
   max-width: 560px;
+  margin: 0 auto;
+  padding: calc(72px + env(safe-area-inset-top, 0px)) 20px calc(48px + env(safe-area-inset-bottom, 0px));
 }
 
-.hero-sub {
-  max-width: 440px;
-  margin-top: 16px;
-  font-size: 16px;
+@media (min-width: 760px) {
+  .receipt-wrap { max-width: 640px; }
 }
 
-.hero-cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
+@media (min-width: 1100px) {
+  .receipt-wrap { max-width: 860px; }
 }
 
-.hero-version {
+@media (min-width: 1500px) {
+  .receipt-wrap { max-width: 1040px; }
+}
+
+@media (min-width: 1900px) {
+  .receipt-wrap { max-width: 1160px; }
+}
+
+/* На широкой бумаге фиксированные по размеру элементы (кнопка, фото) не должны
+   просто растягиваться/кучковаться слева — подгоняем, чтобы заполняли ширину разумно. */
+@media (min-width: 760px) {
+  .btn-total { max-width: 480px; }
+  .receipt-photos { justify-content: center; }
+}
+
+@media (min-width: 1100px) {
+  .receipt-photo { width: 168px; }
+  .receipt-step-shot .receipt-photo { width: 150px; }
+}
+
+@media (min-width: 1500px) {
+  .receipt-photo { width: 190px; }
+  .receipt-step-shot .receipt-photo { width: 164px; }
+}
+
+/* Углы прилавка на широких экранах — чтобы не было пустой черноты по бокам,
+   пока чек один занимает центр. Чисто декоративно, приглушено, не мешает контенту. */
+.corner-deco {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  color: var(--counter-accent);
+  opacity: 0.45;
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--counter-accent) 50%, transparent));
+  display: none;
+}
+
+.corner-deco svg { display: block; width: 100%; height: 100%; }
+
+@media (min-width: 1020px) {
+  .corner-deco { display: block; }
+  .corner-deco--tl { top: 14vh; left: 5vw; width: 74px; transform: rotate(-9deg); }
+  .corner-deco--tr { top: 16vh; right: 5vw; width: 92px; transform: rotate(7deg); }
+  .corner-deco--bl { bottom: 12vh; left: 6vw; width: 84px; transform: rotate(-6deg); }
+  .corner-deco--br { bottom: 10vh; right: 5.5vw; width: 78px; transform: rotate(8deg); }
+}
+
+@media (min-width: 1300px) {
+  .corner-deco--tl { left: 9vw; width: 90px; }
+  .corner-deco--tr { right: 9vw; width: 110px; }
+  .corner-deco--bl { left: 10vw; width: 98px; }
+  .corner-deco--br { right: 9.5vw; width: 92px; }
+}
+
+@media (min-width: 1700px) {
+  .corner-deco--tl { width: 106px; }
+  .corner-deco--tr { width: 128px; }
+  .corner-deco--bl { width: 114px; }
+  .corner-deco--br { width: 108px; }
+}
+
+.receipt {
+  position: relative;
+}
+
+.receipt-edge {
+  height: 14px;
+  background: var(--paper);
+  -webkit-mask-image: linear-gradient(135deg, transparent 50%, #000 50%), linear-gradient(-135deg, transparent 50%, #000 50%);
+  -webkit-mask-size: 14px 14px;
+  -webkit-mask-repeat: repeat-x;
+  mask-image: linear-gradient(135deg, transparent 50%, #000 50%), linear-gradient(-135deg, transparent 50%, #000 50%);
+  mask-size: 14px 14px;
+  mask-repeat: repeat-x;
+}
+
+.receipt-edge--bottom { transform: scaleY(-1); }
+
+.receipt-body {
+  position: relative;
+  background: var(--paper);
+  color: var(--paper-text);
+  font-family: var(--font-mono);
+  padding: 8px 28px 32px;
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.55);
+}
+
+/* Лёгкое зерно самой бумаги — чек не идеально гладкий. */
+.receipt-body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.receipt-body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.receipt-divider {
+  border: none;
+  border-top: 1px dashed var(--paper-faint);
+  margin: 22px 0;
+}
+
+.receipt-center { text-align: center; }
+
+/* Шапка чека */
+.receipt-letterhead {
+  text-align: center;
+  padding-top: 18px;
+}
+
+.receipt-store-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 10px;
+  border-radius: 12px;
+}
+
+.receipt-store-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.receipt-meta {
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--paper-muted);
+  text-transform: uppercase;
+}
+
+.barcode-strip {
+  height: 30px;
   margin-top: 14px;
-  font-size: 13px;
-  color: var(--text-secondary);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--paper-text) 0px, var(--paper-text) 2px,
+    transparent 2px, transparent 5px,
+    var(--paper-text) 5px, var(--paper-text) 8px,
+    transparent 8px, transparent 10px,
+    var(--paper-text) 10px, var(--paper-text) 13px,
+    transparent 13px, transparent 19px,
+    var(--paper-text) 19px, var(--paper-text) 20px,
+    transparent 20px, transparent 24px
+  );
+  opacity: 0.85;
 }
 
-.hero-trust {
+/* Hero — единственное место с крупной типографикой display-начертания,
+   как заголовок, пробитый кассой жирнее обычной строки. */
+.receipt-hero {
+  padding-top: 26px;
+}
+
+.receipt-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 7vw, 34px);
+  line-height: 1.18;
+  font-weight: 700;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+  max-width: 480px;
+}
+
+.receipt-hero p {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--paper-muted);
+  margin: 0 0 22px;
+  max-width: 420px;
+}
+
+.btn-total {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 34px;
-  padding-top: 24px;
-  border-top: 1px solid var(--hairline);
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 16px 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 26px -8px color-mix(in srgb, var(--burgundy) 60%, transparent);
+  border: none;
+  cursor: pointer;
 }
 
-.trust-item {
+.btn-total span:first-child {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+  text-transform: uppercase;
+}
+
+.btn-total span:last-child {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+}
+
+.btn-total svg { width: 18px; height: 18px; }
+
+.receipt-version-line {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--paper-muted);
+  text-align: center;
+}
+
+.btn-secondary {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px dashed currentColor;
+  padding-bottom: 1px;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+/* Состав — фичи как строки чека */
+.receipt-section-title {
+  font-size: 11px;
   font-weight: 700;
-  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+  margin-bottom: 14px;
 }
 
-.trust-item .icon { color: var(--primary); }
-
-.hero-visual {
+.receipt-line {
   display: flex;
-  justify-content: center;
-  padding: 20px 0 48px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 14.5px;
+  padding: 7px 0;
 }
 
-.hero-visual-stage {
-  position: relative;
+.receipt-line-label {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 3vw, 28px);
-  width: max-content;
+  gap: 10px;
+  min-width: 0;
 }
 
-.hero-blob {
-  position: absolute;
-  width: 320px;
-  height: 320px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, var(--burgundy-light) 0%, transparent 70%);
-  opacity: 0.22;
-  filter: blur(40px);
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Phone mockup */
-
-.phone-frame {
-  position: relative;
-  width: clamp(168px, 52vw, 260px);
-  aspect-ratio: 1080 / 2400;
-  background: var(--phone-bezel);
-  border-radius: 34px;
-  padding: 9px;
-  box-shadow: 0 30px 60px -22px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--hairline);
+.receipt-line-icon {
+  width: 18px;
+  height: 18px;
   flex: 0 0 auto;
-  z-index: 2;
+  color: var(--ink);
+  opacity: 0.8;
 }
 
-.phone-frame::before {
+.receipt-line b { font-weight: 600; }
+
+.receipt-line .mark { color: var(--ink); font-weight: 700; flex: 0 0 auto; }
+
+.receipt-line-note {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--paper-muted);
+  margin: -2px 0 10px;
+  max-width: 430px;
+}
+
+.receipt-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 18px;
+  padding: 16px 6px;
+  border-top: 1px dashed var(--paper-faint);
+  border-bottom: 1px dashed var(--paper-faint);
+}
+
+.receipt-stat {
+  text-align: center;
+  padding: 0 6px;
+  border-right: 1px dashed var(--paper-faint);
+}
+
+.receipt-stat:last-child { border-right: none; }
+
+.receipt-stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.receipt-stat span {
+  display: block;
+  font-size: 9.5px;
+  color: var(--paper-muted);
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+/* Фото с витрины — приклеенные скриншоты */
+.receipt-photos {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 18px 6px 10px;
+  margin: 0 -6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.receipt-photo {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(128px, 36vw, 150px);
+}
+
+.receipt-photo-frame {
+  position: relative;
+  aspect-ratio: 1080 / 2400;
+  background: #050505;
+  border-radius: 20px;
+  padding: 7px;
+  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.45);
+}
+
+.receipt-photo-frame::before {
   content: "";
   position: absolute;
-  top: 9px;
+  top: 7px;
   left: 50%;
   transform: translateX(-50%);
-  width: 64px;
-  height: 16px;
-  background: var(--phone-bezel);
-  border-radius: 0 0 12px 12px;
+  width: 44px;
+  height: 11px;
+  background: #050505;
+  border-radius: 0 0 8px 8px;
   z-index: 2;
 }
 
-.phone-screen {
-  position: relative;
+.receipt-photo-screen {
   width: 100%;
   height: 100%;
-  border-radius: 26px;
+  border-radius: 14px;
   overflow: hidden;
   background: #000;
 }
 
-.phone-screen img {
+.receipt-photo-screen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
 }
 
-.phone-frame--small { width: clamp(130px, 38vw, 190px); }
-
-/* Чек — узнаваемый для POS-приложения элемент вместо дженерик-плашки. Стоит рядом с
-   телефоном в обычном потоке (не абсолютным позиционированием внахлёст), поэтому не
-   может ничего перекрыть и не обрезается ни на одном размере экрана. Бумага всегда
-   светлая независимо от темы сайта, как у настоящего чека. */
-.receipt {
-  flex: 0 0 auto;
-  align-self: center;
-  width: clamp(128px, 32vw, 150px);
-  background: #faf6ec;
-  color: #2a2420;
-  border-radius: 10px 10px 0 0;
-  padding: 12px 12px 16px;
-  font-family: var(--font-mono);
-  box-shadow: 0 20px 40px -16px rgba(0, 0, 0, 0.45);
-  transform: rotate(-5deg);
-}
-
-.receipt::after {
-  content: "";
+.receipt-tape {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -11px;
-  height: 12px;
-  background: #faf6ec;
-  -webkit-mask-image: linear-gradient(135deg, transparent 50%, #000 50%), linear-gradient(-135deg, transparent 50%, #000 50%);
-  -webkit-mask-size: 12px 12px;
-  -webkit-mask-repeat: repeat-x;
-  mask-image: linear-gradient(135deg, transparent 50%, #000 50%), linear-gradient(-135deg, transparent 50%, #000 50%);
-  mask-size: 12px 12px;
-  mask-repeat: repeat-x;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 54px;
+  height: 20px;
+  background: rgba(250, 240, 200, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 3;
 }
 
-.receipt-title {
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.receipt-photo:nth-child(even) .receipt-tape { transform: translateX(-50%) rotate(3deg); }
+
+.receipt-photo-caption {
   text-align: center;
-  margin-bottom: 10px;
-  opacity: 0.6;
+  font-size: 10.5px;
+  color: var(--paper-muted);
+  margin-top: 8px;
 }
 
-.receipt-row {
+/* Инструкция */
+.receipt-step {
   display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 11px;
-  padding: 3px 0;
-  white-space: nowrap;
-}
-
-.receipt-divider {
-  border-top: 1px dashed rgba(42, 36, 32, 0.3);
-  margin: 6px 0;
-}
-
-.receipt-total {
-  font-weight: 700;
-  font-size: 12px;
-}
-
-/* Sections */
-
-main > section,
-main > div.container {
-  padding-block: 64px;
-}
-
-.section-head {
-  max-width: 540px;
-  margin-bottom: 36px;
-}
-
-.eyebrow {
-  display: block;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 10px;
-  font-family: var(--font-body);
-}
-
-.section-head p { margin-top: 10px; }
-
-/* Features */
-
-.section-features {
-  position: relative;
-  overflow: hidden;
-  background: var(--panel);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-}
-
-/* Мягкие цветные пятна позади — без них стеклянным карточкам нечего размывать, эффект
-   просто не будет виден на плоском фоне. */
-.section-features::before,
-.section-features::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: var(--blob-opacity);
-  pointer-events: none;
-  z-index: -1;
-}
-
-.section-features::before {
-  width: 440px;
-  height: 440px;
-  background: var(--blob-1);
-  top: -160px;
-  left: -120px;
-}
-
-.section-features::after {
-  width: 380px;
-  height: 380px;
-  background: var(--blob-2);
-  bottom: -140px;
-  right: -100px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.feature-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 24px;
-  padding: 24px;
-}
-
-.feature-lead {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 14%, transparent), transparent 60%), var(--glass-bg);
-}
-
-.feature-lead .feature-icon { margin-bottom: 0; }
-
-.feature-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary), var(--burgundy-dark));
-  color: #fff;
-  box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--primary) 65%, transparent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 14px;
-  flex: 0 0 auto;
-}
-
-.feature-card p { margin-top: 6px; font-size: 14px; }
-.feature-lead-text p { max-width: 460px; font-size: 15px; }
-
-.stat-panel {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 36px;
-  padding: 28px 24px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 24px;
-}
-
-.stat { text-align: center; }
-
-.stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.stat-label {
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-/* Screens strip */
-
-.section-screens { padding-bottom: 12px; }
-
-.screens-scroll {
-  display: flex;
-  align-items: flex-start;
-  /* flex-start на мобильном: justify-content:center при overflow-x:auto в Chrome обрезает
-     начало контента и делает его недостижимым прокруткой — известная особенность флексбокса. */
-  justify-content: flex-start;
-  gap: 22px;
-  overflow-x: auto;
-  padding: 10px 20px 20px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (min-width: 900px) {
-  .screens-scroll { justify-content: center; }
-}
-
-.screen-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-}
-
-.screen-caption {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
-}
-
-@media (min-width: 760px) {
-  .screen-tilt-a { transform: rotate(-3deg); transition: transform 0.2s ease; }
-  .screen-tilt-b { transform: rotate(3deg); transition: transform 0.2s ease; }
-  .screen-item:hover .phone-frame { transform: rotate(0deg); }
-}
-
-/* Install steps */
-
-.section-install { border-top: 1px solid var(--hairline); }
-
-.steps {
-  list-style: none;
-  counter-reset: step;
-  margin: 24px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.steps li {
-  counter-increment: step;
-  background: var(--glass-bg);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 18px;
-  padding: 16px 18px 16px 54px;
-  position: relative;
-  color: var(--text-secondary);
-  font-size: 15px;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 13.5px;
   line-height: 1.55;
 }
 
-.steps li::before {
-  content: counter(step);
-  position: absolute;
-  left: 16px;
-  top: 16px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--on-primary);
-  font-weight: 700;
-  font-size: 13px;
+.receipt-step-num {
   font-family: var(--font-display);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.steps strong { color: var(--text-primary); }
-
-.step-shot {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.step-shot-caption {
-  display: block;
-  font-size: 12px;
-  color: var(--text-secondary);
-  text-align: center;
-}
-
-/* iOS stub */
-
-.section-ios {
-  position: relative;
-  overflow: hidden;
-  background: var(--panel);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-}
-
-.section-ios::before {
-  content: "";
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  background: var(--blob-2);
-  filter: blur(70px);
-  opacity: var(--blob-opacity);
-  top: -140px;
-  right: -100px;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.ios-card {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 24px;
-  padding: 24px;
-}
-
-.ios-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--text-secondary), color-mix(in srgb, var(--text-secondary) 40%, transparent));
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-}
-
-.ios-text { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-
-.ios-title-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.ios-title-row h3 { margin: 0; }
-
-.ios-badge {
-  display: inline-block;
-  background: color-mix(in srgb, var(--text-secondary) 20%, transparent);
-  color: var(--text-secondary);
-  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 3px 10px;
+  color: var(--ink);
+  flex: 0 0 auto;
+  font-size: 13px;
+  padding-top: 1px;
+}
+
+.receipt-step b { font-weight: 600; }
+
+.receipt-step-shot {
+  margin: 10px 0 4px 32px;
+}
+
+.receipt-step-shot .receipt-photo { width: clamp(118px, 34vw, 140px); }
+
+.receipt-step-shot-caption {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  color: var(--paper-muted);
+  margin-top: 6px;
+}
+
+/* iOS строка */
+.receipt-ios-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  padding: 4px 0 14px;
+}
+
+.receipt-ios-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--paper-muted);
+  border: 1px dashed var(--paper-faint);
+  padding: 3px 9px;
   border-radius: 999px;
 }
 
-.ios-text p { margin: 0; max-width: 480px; }
-
-@media (min-width: 560px) {
-  .ios-card { flex-direction: row; align-items: flex-start; padding: 28px; }
-  .ios-icon { width: 52px; height: 52px; }
+.receipt-ios-note {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--paper-muted);
+  margin-top: -6px;
+  max-width: 420px;
 }
 
-/* Trust badges row */
-
-.badges-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.badge-item {
-  display: flex;
+.btn-whatsapp {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13.5px;
+  gap: 7px;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--paper-faint);
+  padding: 9px 14px;
+  border-radius: 999px;
 }
 
-.badge-item .icon { color: var(--primary); }
+.btn-whatsapp svg { width: 14px; height: 14px; }
 
-/* Footer */
-
-footer {
-  padding: 28px 20px calc(40px + env(safe-area-inset-bottom, 0px));
+/* Подвал чека */
+.receipt-footer {
   text-align: center;
-  color: var(--text-secondary);
-  font-size: 13px;
-  border-top: 1px solid var(--hairline);
+  padding-top: 6px;
 }
 
-/* Desktop */
-
-/* Планшет — промежуточный шаг между телефоном и десктопом, а не скачок сразу в 3-4 колонки. */
-@media (min-width: 560px) {
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
-  .feature-lead { grid-column: span 2; flex-direction: row; align-items: center; padding: 28px; }
-  .feature-lead .feature-icon { width: 54px; height: 54px; }
-  .badges-row { grid-template-columns: repeat(2, 1fr); }
+.receipt-thanks {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
 }
 
-@media (min-width: 760px) {
-  .hero-inner { flex-direction: row; align-items: center; justify-content: space-between; }
-  .hero-content { max-width: 480px; }
+.receipt-footer p {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  color: var(--paper-muted);
+  margin: 0 0 16px;
+}
 
-  .features-grid { grid-template-columns: repeat(3, 1fr); }
-  .feature-lead {
-    grid-column: span 3;
-    padding: 32px;
+.receipt-footer-version {
+  font-size: 10.5px;
+  color: var(--paper-muted);
+  letter-spacing: 0.04em;
+}
+
+@media (min-width: 620px) {
+  .receipt-body { padding: 8px 40px 40px; }
+}
+
+/* Маленькие телефоны (iPhone SE и похожие) — четыре колонки статистики и
+   кнопка с длинным текстом уже не помещаются без переразбивки. */
+@media (max-width: 380px) {
+  .receipt-wrap { padding-left: 14px; padding-right: 14px; }
+  .receipt-body { padding-left: 18px; padding-right: 18px; }
+
+  .receipt-stats {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 12px;
   }
-  .feature-lead .feature-icon { width: 60px; height: 60px; }
-  .feature-lead .feature-icon svg { width: 26px; height: 26px; }
 
-  .badges-row { grid-template-columns: repeat(4, 1fr); }
-  .receipt { width: 168px; }
-}
+  .receipt-stat:nth-child(2n) { border-right: none; }
 
-@media (min-width: 1000px) {
-  .hero-content { max-width: 540px; }
-}
+  .btn-total {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
 
-@media (max-width: 500px) {
-  .stat-panel { grid-template-columns: repeat(2, 1fr); gap: 20px 12px; padding: 22px 16px; }
-}
+  .btn-total span:last-child { font-size: 14px; }
 
-/* Очень узкие экраны (старые/компактные телефоны) — сжимаем декоративные отступы. */
-@media (max-width: 360px) {
-  .hero-badge { font-size: 12px; padding: 5px 12px; }
-  .receipt { width: 108px; padding: 9px 9px 12px; }
-  .receipt-row { font-size: 9.5px; }
-  .receipt-total { font-size: 10.5px; }
-  .receipt-row, .receipt-title { font-size: 11px; }
-  .nav-inner { gap: 12px; }
-  .brand span { display: none; }
+  .receipt-ios-row {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .receipt-step-shot { margin-left: 20px; }
 }
